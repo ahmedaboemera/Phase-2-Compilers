@@ -33,6 +33,7 @@ public:
 	string get_starting();
 //	map<string,map<string, vector<string> > > built_predictive_table();
 	vector<vector<string> > get_def(string s);
+	string trim(string x);
 private:
 //	Utilities util;
 	void fill_map(vector<string>* lines);
@@ -41,6 +42,5 @@ private:
 	int get_eq(string s);
 	vector<string>* get_terminals(string s);
 	string get_nonterminal(string s);
-	string trim(string x);
 };
 #endif /* INITIATOR_H_ */

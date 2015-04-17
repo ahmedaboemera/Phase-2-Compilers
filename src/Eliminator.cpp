@@ -180,15 +180,15 @@ void Eliminator::eliminate_LF(int index) {
 
 }
 void Eliminator::eliminate_LF() {
-	print_grammer();
+//	print_grammer();
 	for (int i = 0; i < initiator->non_terminals->size(); i++) {
 		bool check = probe_for_lf(i);
 		if (check) {
 			eliminate_LF(i);
 		}
 	}
-	cout << "========================================================" << endl;
-	print_grammer();
+//	cout << "========================================================" << endl;
+//	print_grammer();
 }
 
 void Eliminator::eliminate_from_updated(vector<vector<string> > replaced,
@@ -260,15 +260,15 @@ void Eliminator::print_grammer() {
 
 void Eliminator::eliminate_LR() {
 
-	print_grammer();
+//	print_grammer();
 
 	for (int i = 0; i < initiator->non_terminals->size(); i++) {
 		vector<vector<string> > updated = replace(i);
 		eliminate_from_updated(updated, i);
 	}
 
-	cout << "=========================================================="
-			<< endl;
-	print_grammer();
+//	cout << "=========================================================="
+//			<< endl;
+//	print_grammer();
 }
 
