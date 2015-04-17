@@ -1,0 +1,17 @@
+##FIRST(METHOD_BODY): 		{'int', 'float', 'if', 'while', 'id'}
+##FIRST(STATEMENT_LIST):		{'int', 'float', 'if', 'while', 'id'}
+##FIRST(STATEMENT_LIST`):		{'int', 'float', 'if', 'while', 'id', '\L'}
+##FIRST(STATEMENT):			{'int', 'float', 'if', 'while', 'id'}
+##FIRST(DECLARATION):			{'int', 'float'}
+##FIRST(IF):					{'if'}
+##FIRST(WHILE):				{'while'}
+##FIRST(ASSIGNMENT):			{'id'}
+##FIRST(PRIMITIVE_TYPE):		{'int', 'float'}
+##FIRST(EXPRESSION):			{'id', 'num', '(', '+', '-'}
+##FIRST(SIMPLE_EXPRESSION*):	{'\L', 'relop'}
+##FIRST(SIMPLE_EXPRESSION):	{'id', 'num', '(', '+', '-'}
+##FIRST(SIMPLE_EXPRESSION`):	{'addop', '\L'}
+##FIRST(TERM):				{'id', 'num', '('}
+##FIRST(TERM`):				{'mulop', '\L'}
+##FIRST(SIGN):				{'+', '-'}
+##FIRST(FACTOR):				{'id', 'num', '('}

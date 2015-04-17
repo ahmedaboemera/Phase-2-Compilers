@@ -1,0 +1,14 @@
+?: Missing
+!: Finished
+
+? Compute FIRST and FOLLOW of the grammar's non-terminals
+? Construct a predictive parsing table for the grammar
+? Use table to drive a predictive top-down parser
+? Check whether the input grammer is LL(1) or not, produce error message accordingly
+? Produce some representation of the leftmost derivation of the correct input
+? When an error is encountered, call panic-mode error recovery routine, print message, resume parsing
+? Modify the grammar to allow predictive parsing (manually)
+? Write a new simulator for phase 1 (lexical analyzer) to fetch tokens one by one and pass them to the parser
+
+? BONUS: Eliminate left recursion and perform left factoring before running the parser
+	

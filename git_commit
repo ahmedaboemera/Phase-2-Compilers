@@ -1,0 +1,24 @@
+#! /bin/bash
+
+if [ $# -lt 1 ]
+then
+	echo "Error:	invalid number of parameters"
+	echo "			must input the file/directory name as a parameter"
+	echo "			and an optional message as another parameter"
+	echo "			script signature: git_commit file_or_folder message "
+	exit 1
+fi
+
+echo "processing..."
+git add $1
+if [ -z "$2" ]
+then
+	git commit -m "no msg"
+else
+	git commit -m "$2"
+fi
+git pull
+git push origin master
+git status
+echo "...done"
+exit 0

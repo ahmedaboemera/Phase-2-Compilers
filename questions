@@ -1,0 +1,6 @@
+Panic-mode recovery: int 2x;	?
+
+modify grammar to allow predictive pasring vs. automatically eliminating grammar left recursion and performing lef
+t factoring ---> manually using a pencil and a paper vs. automatically eliminating them before running the program
+
+
