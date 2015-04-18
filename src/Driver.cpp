@@ -42,32 +42,6 @@ vector<string>* modify_grammar_file(const char* file_path) {
 	return to_return;
 }
 
-void mains() {
-	vector<string>* modified = modify_grammar_file("src/CFG.txt");
-	Initiator* i = new Initiator();
-	i->get_terminals_and_nonterminals(modified);
-	Eliminator* e = new Eliminator(i);
-	e->eliminate_LR();
-	e->eliminate_LF();
-	Utilities utilities(i);
-	for (vector<string>::iterator s = i->non_terminals->begin();
-			s != i->non_terminals->end(); s++) {
-		utilities.get_first(*s);
-	}
-	cout << "First:" << endl;
-	utilities.print_first();
-	cout
-			<< "\n\n================================================================\n\n"
-			<< endl;
-	cout << "Follow:" << endl;
-	utilities.compute_follow();
-	utilities.print_follow();
-	Parser p(i, &utilities);
-	p.built_predictive_table();
-	p.print_predictive_table();
-	cout << "done" << endl;
-}
-
 string concatenate_vector(vector<string> prod, Initiator* i) {
 	string str_prod;
 	for (vector<string>::iterator it = prod.begin(); it != prod.end(); it++) {
