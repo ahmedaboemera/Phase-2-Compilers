@@ -1,0 +1,17 @@
+FOLLOW(METHOD_BODY)			: {'$'}
+FOLLOW(STATEMENT_LIST)			: {'$'}
+FOLLOW(STATEMENT_LIST`)			: {'$'}
+FOLLOW(STATEMENT)			: {'int', 'float', 'if', 'while', 'id', '$', '}'}
+FOLLOW(DECLARATION)			: {'int', 'float', 'if', 'while', 'id', '$', '}'}
+FOLLOW(IF)				: {'int', 'float', 'if', 'while', 'id', '$', '}'}
+FOLLOW(WHILE)				: {'int', 'float', 'if', 'while', 'id', '$', '}'}
+FOLLOW(ASSIGNMENT)			: {'int', 'float', 'if', 'while', 'id', '$', '}'}
+FOLLOW(PRIMITIVE_TYPE)			: {'id'}
+FOLLOW(EXPRESSION)			: {')', ';'}
+FOLLOW(SIMPLE_EXPRESSION)		: {')', ';', 'relop'}
+FOLLOW(SIMPLE_EXPRESSION*)		: {')', ';'}
+FOLLOW(SIMPLE_EXPRESSION`)		: {')', ';', 'relop'}
+FOLLOW(TERM)				: {'addop',')', ';', 'relop'}
+FOLLOW(TERM`)				: {'addop',')', ';', 'relop'}
+FOLLOW(SIGN)				: {'id', 'num', '('}
+FOLLOW(FACTOR)				: {'mulop','addop',')', ';', 'relop'}

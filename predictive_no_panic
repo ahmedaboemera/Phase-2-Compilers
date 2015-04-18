@@ -1,0 +1,134 @@
+ASSIGNMENT:
+	id:
+		‘id’ ‘assign’ EXPRESSION ‘;’ 
+DECLARATION:
+	float:
+		PRIMITIVE_TYPE ‘id’ ‘;’ 
+	int:
+		PRIMITIVE_TYPE ‘id’ ‘;’ 
+EXPRESSION:
+	(:
+		SIMPLE_EXPRESSION EXPRESSION* 
+	+:
+		SIMPLE_EXPRESSION EXPRESSION* 
+	-:
+		SIMPLE_EXPRESSION EXPRESSION* 
+	id:
+		SIMPLE_EXPRESSION EXPRESSION* 
+	num:
+		SIMPLE_EXPRESSION EXPRESSION* 
+EXPRESSION*:
+	):
+		\L 
+	;:
+		\L 
+	relop:
+		‘relop’ SIMPLE_EXPRESSION 
+FACTOR:
+	(:
+		‘(‘ EXPRESSION ‘)’ 
+	id:
+		‘id’ 
+	num:
+		‘num’ 
+IF:
+	if:
+		‘if’ ‘(‘ EXPRESSION ‘)’ ‘{‘ STATEMENT ’}’ ‘else’ ‘{’ STATEMENT ‘}’ 
+METHOD_BODY:
+	float:
+		STATEMENT_LIST 
+	id:
+		STATEMENT_LIST 
+	if:
+		STATEMENT_LIST 
+	int:
+		STATEMENT_LIST 
+	while:
+		STATEMENT_LIST 
+PRIMITIVE_TYPE:
+	float:
+		‘float’ 
+	int:
+		‘int’ 
+SIGN:
+	+:
+		‘+’ 
+	-:
+		‘-‘ 
+SIMPLE_EXPRESSION:
+	(:
+		TERM SIMPLE_EXPRESSION' 
+	+:
+		SIGN TERM SIMPLE_EXPRESSION' 
+	-:
+		SIGN TERM SIMPLE_EXPRESSION' 
+	id:
+		TERM SIMPLE_EXPRESSION' 
+	num:
+		TERM SIMPLE_EXPRESSION' 
+SIMPLE_EXPRESSION':
+	):
+		\L 
+	;:
+		\L 
+	addop:
+		‘addop’ TERM SIMPLE_EXPRESSION' 
+	relop:
+		\L 
+STATEMENT:
+	float:
+		DECLARATION 
+	id:
+		ASSIGNMENT 
+	if:
+		IF 
+	int:
+		DECLARATION 
+	while:
+		WHILE 
+STATEMENT_LIST:
+	float:
+		STATEMENT STATEMENT_LIST' 
+	id:
+		STATEMENT STATEMENT_LIST' 
+	if:
+		STATEMENT STATEMENT_LIST' 
+	int:
+		STATEMENT STATEMENT_LIST' 
+	while:
+		STATEMENT STATEMENT_LIST' 
+STATEMENT_LIST':
+	$:
+		\L 
+	float:
+		STATEMENT STATEMENT_LIST' 
+	id:
+		STATEMENT STATEMENT_LIST' 
+	if:
+		STATEMENT STATEMENT_LIST' 
+	int:
+		STATEMENT STATEMENT_LIST' 
+	while:
+		STATEMENT STATEMENT_LIST' 
+TERM:
+	(:
+		FACTOR TERM' 
+	id:
+		FACTOR TERM' 
+	num:
+		FACTOR TERM' 
+TERM':
+	):
+		\L 
+	;:
+		\L 
+	addop:
+		\L 
+	mulop:
+		‘mulop’ FACTOR TERM' 
+	relop:
+		\L 
+WHILE:
+	while:
+		‘while’ ‘(‘ EXPRESSION ‘)’ ‘{‘ STATEMENT ‘}’ 
+

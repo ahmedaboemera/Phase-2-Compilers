@@ -1,0 +1,224 @@
+ASSIGNMENT:
+	$:
+		synch 
+	float:
+		synch 
+	id:
+		‘id’ ‘assign’ EXPRESSION ‘;’ 
+	if:
+		synch 
+	int:
+		synch 
+	while:
+		synch 
+	}:
+		synch 
+DECLARATION:
+	$:
+		synch 
+	float:
+		PRIMITIVE_TYPE ‘id’ ‘;’ 
+	id:
+		synch 
+	if:
+		synch 
+	int:
+		PRIMITIVE_TYPE ‘id’ ‘;’ 
+	while:
+		synch 
+	}:
+		synch 
+EXPRESSION:
+	(:
+		SIMPLE_EXPRESSION EXPRESSION* 
+	):
+		synch 
+	+:
+		SIMPLE_EXPRESSION EXPRESSION* 
+	-:
+		SIMPLE_EXPRESSION EXPRESSION* 
+	;:
+		synch 
+	id:
+		SIMPLE_EXPRESSION EXPRESSION* 
+	num:
+		SIMPLE_EXPRESSION EXPRESSION* 
+EXPRESSION*:
+	):
+		\L 
+	;:
+		\L 
+	relop:
+		‘relop’ SIMPLE_EXPRESSION 
+FACTOR:
+	(:
+		‘(‘ EXPRESSION ‘)’ 
+	):
+		synch 
+	;:
+		synch 
+	addop:
+		synch 
+	id:
+		‘id’ 
+	mulop:
+		synch 
+	num:
+		‘num’ 
+	relop:
+		synch 
+IF:
+	$:
+		synch 
+	float:
+		synch 
+	id:
+		synch 
+	if:
+		‘if’ ‘(‘ EXPRESSION ‘)’ ‘{‘ STATEMENT ’}’ ‘else’ ‘{’ STATEMENT ‘}’ 
+	int:
+		synch 
+	while:
+		synch 
+	}:
+		synch 
+METHOD_BODY:
+	$:
+		synch 
+	float:
+		STATEMENT_LIST 
+	id:
+		STATEMENT_LIST 
+	if:
+		STATEMENT_LIST 
+	int:
+		STATEMENT_LIST 
+	while:
+		STATEMENT_LIST 
+PRIMITIVE_TYPE:
+	float:
+		‘float’ 
+	id:
+		synch 
+	int:
+		‘int’ 
+SIGN:
+	(:
+		synch 
+	+:
+		‘+’ 
+	-:
+		‘-‘ 
+	id:
+		synch 
+	num:
+		synch 
+SIMPLE_EXPRESSION:
+	(:
+		TERM SIMPLE_EXPRESSION' 
+	):
+		synch 
+	+:
+		SIGN TERM SIMPLE_EXPRESSION' 
+	-:
+		SIGN TERM SIMPLE_EXPRESSION' 
+	;:
+		synch 
+	id:
+		TERM SIMPLE_EXPRESSION' 
+	num:
+		TERM SIMPLE_EXPRESSION' 
+	relop:
+		synch 
+SIMPLE_EXPRESSION':
+	):
+		\L 
+	;:
+		\L 
+	addop:
+		‘addop’ TERM SIMPLE_EXPRESSION' 
+	relop:
+		\L 
+STATEMENT:
+	$:
+		synch 
+	float:
+		DECLARATION 
+	id:
+		ASSIGNMENT 
+	if:
+		IF 
+	int:
+		DECLARATION 
+	while:
+		WHILE 
+	}:
+		synch 
+STATEMENT_LIST:
+	$:
+		synch 
+	float:
+		STATEMENT STATEMENT_LIST' 
+	id:
+		STATEMENT STATEMENT_LIST' 
+	if:
+		STATEMENT STATEMENT_LIST' 
+	int:
+		STATEMENT STATEMENT_LIST' 
+	while:
+		STATEMENT STATEMENT_LIST' 
+STATEMENT_LIST':
+	$:
+		\L 
+	float:
+		STATEMENT STATEMENT_LIST' 
+	id:
+		STATEMENT STATEMENT_LIST' 
+	if:
+		STATEMENT STATEMENT_LIST' 
+	int:
+		STATEMENT STATEMENT_LIST' 
+	while:
+		STATEMENT STATEMENT_LIST' 
+TERM:
+	(:
+		FACTOR TERM' 
+	):
+		synch 
+	;:
+		synch 
+	addop:
+		synch 
+	id:
+		FACTOR TERM' 
+	num:
+		FACTOR TERM' 
+	relop:
+		synch 
+TERM':
+	):
+		\L 
+	;:
+		\L 
+	addop:
+		\L 
+	mulop:
+		‘mulop’ FACTOR TERM' 
+	relop:
+		\L 
+WHILE:
+	$:
+		synch 
+	float:
+		synch 
+	id:
+		synch 
+	if:
+		synch 
+	int:
+		synch 
+	while:
+		‘while’ ‘(‘ EXPRESSION ‘)’ ‘{‘ STATEMENT ‘}’ 
+	}:
+		synch 
+

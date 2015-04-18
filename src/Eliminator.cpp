@@ -42,7 +42,7 @@ vector<vector<string> > Eliminator::replace(int i) {
 										z));
 					}
 
-					for (int z = 0;
+					for (int z = 1;
 							z < (initiator->non_terminal_defs->at(i)).at(j).size();
 							z++) {
 						vec2.push_back(
@@ -187,63 +187,121 @@ void Eliminator::eliminate_LF() {
 			eliminate_LF(i);
 		}
 	}
-//	cout << "========================================================" << endl;
-//	print_grammer();
+	cout << "========================================================" << endl;
+	print_grammer();
 }
 
-void Eliminator::eliminate_from_updated(vector<vector<string> > replaced,
-		int index) {
+//void Eliminator::eliminate_from_updated(vector<vector<string> > replaced,
+//		int index) {
+//
+//	string non_terminal_name = initiator->non_terminals->at(index);
+//	vector<int> lr_indecies;
+//	vector<int> n_lr_indecies;
+//	for (int i = 0; i < replaced.size(); i++) {
+//		if (non_terminal_name.compare(
+//				(replaced.at(i).at(0))) == 0) {
+//			lr_indecies.push_back(i);
+//		} else {
+//			n_lr_indecies.push_back(i);
+//		}
+//	}
+//	if (lr_indecies.size() == 0) {
+//		initiator->non_terminal_defs->at(index) = replaced;
+//		return;
+//	} else {
+//		string new_non_terminal = non_terminal_name + "\'";
+//		initiator->non_terminals->push_back(new_non_terminal);
+//		vector<vector<string> > updated;
+//
+//		for (int i = 0; i < n_lr_indecies.size(); i++) {
+//			vector<string> vec = (replaced.at(
+//					n_lr_indecies.at(i)));
+//			vec.push_back(new_non_terminal);
+//			updated.push_back(vec);
+//		}
+//
+//		vector<vector<string> > new_update;
+//
+//		vector<string> epsilon;
+//		epsilon.push_back("\\L");
+//		new_update.push_back(epsilon);
+//
+//		for (int i = 0; i < lr_indecies.size(); i++) {
+//			vector<string> vec;
+//			for (int k = 1;
+//					k
+//							< (replaced.at(i)).size(); k++) {
+//				vec.push_back(
+//						(replaced.at(i)).at(k));
+//			}
+//			vec.push_back(new_non_terminal);
+//			new_update.push_back(vec);
+//		}
+//
+//		initiator->non_terminal_defs->push_back(new_update);
+//		initiator->non_terminal_defs->at(index) = updated;
+//	}
+//}
 
-	string non_terminal_name = initiator->non_terminals->at(index);
-	vector<int> lr_indecies;
-	vector<int> n_lr_indecies;
-	for (int i = 0; i < (initiator->non_terminal_defs->at(index)).size(); i++) {
-		if (non_terminal_name.compare(
-				(initiator->non_terminal_defs->at(index)).at(i).at(0)) == 0) {
-			lr_indecies.push_back(i);
-		} else {
-			n_lr_indecies.push_back(i);
+void Eliminator::eliminate_from_updated(vector<vector<string> > replaced, int index){
+	string non_terminal = initiator->non_terminals->at(index);
+	vector<int> lr;
+	vector<int> nlr;
+
+	for(int i = 0 ; i < replaced.size() ; i++){
+		if(replaced.at(i).at(0).compare(non_terminal)==0){
+			lr.push_back(i);
+		}else{
+			nlr.push_back(i);
 		}
 	}
-	if (lr_indecies.size() == 0) {
+
+	if(lr.size() == 0){
+		initiator->non_terminal_defs->at(index) = replaced;
 		return;
-	} else {
-		string new_non_terminal = non_terminal_name + "\'";
-		initiator->non_terminals->push_back(new_non_terminal);
-		vector<vector<string> > updated;
+	}else{
+		string new_non_term = non_terminal + "\'";
+		initiator->non_terminals->push_back(new_non_term);
 
-		for (int i = 0; i < n_lr_indecies.size(); i++) {
-			vector<string> vec = (initiator->non_terminal_defs->at(index)).at(
-					n_lr_indecies.at(i));
-			vec.push_back(new_non_terminal);
-			updated.push_back(vec);
-		}
+		vector<vector<string> > update;
+		vector<vector<string> > new_nterm;
 
-		vector<vector<string> > new_update;
-
-		vector<string> epsilon;
-		epsilon.push_back("\\L");
-		new_update.push_back(epsilon);
-
-		for (int i = 0; i < lr_indecies.size(); i++) {
-			vector<string> vec;
-			for (int k = 1;
-					k
-							< (initiator->non_terminal_defs->at(index)).at(
-									lr_indecies.at(i)).size(); k++) {
-				vec.push_back(
-						(initiator->non_terminal_defs->at(index)).at(
-								lr_indecies.at(i)).at(k));
+		bool eps_add = true;
+		//update
+		if(nlr.size() == 0){
+			eps_add = false;
+			vector<string>v;
+			v.push_back(new_non_term);
+			update.push_back(v);
+		}else{
+			for(int i = 0 ; i < nlr.size() ; i++){
+				int ii = nlr.at(i);
+				vector<string> vec = replaced.at(ii);
+				vec.push_back(new_non_term);
+				update.push_back(vec);
 			}
-			vec.push_back(new_non_terminal);
-			new_update.push_back(vec);
 		}
 
-		initiator->non_terminal_defs->push_back(new_update);
-		initiator->non_terminal_defs->at(index) = updated;
+		initiator->non_terminal_defs->at(index) = update;
+
+		if(eps_add){
+			vector<string> v;
+			v.push_back("\\L");
+			new_nterm.push_back(v);
+		}
+		for(int i = 0 ; i < lr.size() ; i++){
+			int ii = lr.at(i);
+			vector<string> v;
+			for(int j = 1; j < replaced.at(ii).size(); j++){
+				v.push_back(replaced.at(ii).at(j));
+			}
+			v.push_back(new_non_term);
+			new_nterm.push_back(v);
+		}
+
+		initiator->non_terminal_defs->push_back(new_nterm);
 	}
 }
-
 void Eliminator::print_grammer() {
 	for (int i = 0; i < initiator->non_terminals->size(); i++) {
 		cout << initiator->non_terminals->at(i) << " --> ";

@@ -149,20 +149,20 @@ int main() {
 			stack_depth--;
 			ip++;
 		} else if (i.is_terminal(top)) {
-			cerr << "Error has occurred!" << endl;
-			return 0;
+			cerr << "Panic mode: " << top << "does not match any tokens" << endl;
+			cerr << "popping terminal and continuing..." << endl;
+			s.pop();
+			stack_depth--;
+			ip++;
 		} else {
 			try {
 				vector<string> prod = p.get_entry(top, input_buffer.at(ip));
 
-				cout << "depth: " << stack_depth << ", size: " << s.size() << endl;
 				string str_prod = concatenate_vector(prod, &i);
-//				if (str_prod.compare("\\L") != 0) {
-					for (vector<string>::iterator it = matched_tokens.begin();
-							it != matched_tokens.end(); it++) {
-						out << *it << " ";
-					}
-//				}
+				for (vector<string>::iterator it = matched_tokens.begin();
+					it != matched_tokens.end(); it++) {
+					out << *it << " ";
+				}
 				s.pop();
 				stack_depth--;
 				int i = prod.size() - 1;
@@ -178,9 +178,19 @@ int main() {
 					out << *it << " ";
 				}
 				out << "\n";
+
 			} catch (int i) {
-				cerr << "Error has occurred! Panic mode" << endl;
-				return 0;
+				if (i == 3) {
+					cerr << "Panic mode: synch was encountered" << endl;
+					cerr << "recovering..." << endl;
+					s.pop();
+					stack_depth--;
+					ip++;
+				}
+				else {
+					cerr << "Panic mode: entry is empty, cannot recover from error. Abort." << endl;
+					return 0;
+				}
 			}
 		}
 		top = p.remove_uni_quotes(s.top());
